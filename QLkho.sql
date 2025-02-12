@@ -1,0 +1,74 @@
+DROP DATABASE IF EXISTS QLKH;
+CREATE DATABASE QLKH;
+USE QLKH;
+
+CREATE TABLE LOAIHANG
+(
+    MALH CHAR(3) PRIMARY KEY,
+    TENLH VARCHAR(20)
+);
+
+INSERT INTO LOAIHANG (MALH, TENLH) VALUES
+('C01', 'VIP'),
+('C02', 'Normal'),
+('C03', 'New');
+
+CREATE TABLE HANG
+(
+    MAHG CHAR(3) PRIMARY KEY,
+    TENHG VARCHAR(20),
+    DONGIA FLOAT,
+    MALH CHAR(3)
+);
+
+INSERT INTO HANG (MAHG, TENHG, DONGIA, MALH) VALUES
+('P01', 'Pepsi', 1000, 'C01'),
+('P02', '7up', 500, 'C02'),
+('P03', 'Coca cola', 300, 'C03'),
+('P04', 'Water', 200, 'C02'),
+('P05', 'Apple juice', 100, 'C03');
+
+CREATE TABLE KHOHANG
+(
+    MAKH CHAR(3) PRIMARY KEY,
+    DIACHI VARCHAR(20),
+    MALH VARCHAR(20)
+);
+
+INSERT INTO KHOHANG (MAKH, DIACHI, MALH) VALUES
+('W01', 'Ha Noi', 'C01'),
+('W02', 'Hai Phong', 'C02'),
+('W03', 'Da Nang', 'C03'),
+('W04', 'TP.HCM', 'C01'),
+('W05', 'Can Tho', 'C02'),
+('W06', 'Dong Nai', 'C03'),
+('W07', 'Da Nang', 'C03');
+CREATE TABLE TONKHO
+(
+    MAKH CHAR(3),
+    MAHG CHAR(3),
+    SOLUONG INT,
+    PRIMARY KEY (MAKH, MAHG)
+);
+
+INSERT INTO TONKHO (MAKH, MAHG, SOLUONG) VALUES
+('W01', 'P01', 10),
+('W02', 'P02', 20),
+('W03', 'P03', 30),
+('W04', 'P04', 40),
+('W05', 'P05', 50),
+('W06', 'P01', 60),
+('W07', 'P02', 70);
+
+-- 1. Tỷ giá hàng của từng kho.
+
+
+SELECT *
+FROM HANG
+WHERE HANG.MAHG NOT IN (SELECT MAHG FROM TONKHO);
+
+-- W01 -> có thể chứa hoặc tồn kho
+SELECT HANG.MAHG 
+FROM HANG, KHOHANG
+WHERE MAKH = 'W01' AND HANG.MALH = KHOHANG.MALH;
+
