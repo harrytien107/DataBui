@@ -13,4 +13,4 @@ hoặc dùng [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
 
 Cách 2: 
 
-Chơi bằng Docker (complicate vcl) và (Coming soon)
+Chơi bằng Docker (Tự làm vì nó dễ)
